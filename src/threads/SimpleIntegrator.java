@@ -29,8 +29,7 @@ public class SimpleIntegrator implements Runnable {
             if (null==f) {
                 System.out.println("Неполная инициализация");
             } else {
-                double res;
-                res = Functions.inegral(f, leftB, rightB, step);
+                double res = Functions.inegral(f, leftB, rightB, step);
                 System.out.println("Result <" + leftB + "> <" + rightB + "> <" + step + "> <" + res + ">");
             }
         }

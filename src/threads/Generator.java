@@ -20,25 +20,28 @@ public class Generator extends Thread {
     }
 
     public void run() {
-        for (int i =0; i< 100; ++i){
-            double step;
-            double leftB;
-            double rightB;
-            semaphore.beginWrite();
-            double x = random.nextDouble();
-            double base = 10 - rand(0, 10);
-            Function log = new Log(base);
-            task.setFunction(log);
-            leftB = rand(0, 100);
-            task.setLeftBorder(leftB);
-            rightB = 200 - rand(100, 200);
-            task.setRightBorder(rightB);
-            step = random.nextDouble();
-            task.setStep(step);
-            semaphore.endWrite();
-            System.out.println("Source <" + leftB + "> <" + rightB + "> <" + step + ">");
+        try {
+            for (int i = 0; i < 100; ++i) {
+                double step;
+                double leftB;
+                double rightB;
+                double x = random.nextDouble();
+                double base = 10 - rand(0, 10);
+                Function log = new Log(base);
+                leftB = rand(0, 100);
+                rightB = 200 - rand(100, 200);
+                step = random.nextDouble();
+                semaphore.beginWrite();
+                task.setFunction(log);
+                task.setLeftBorder(leftB);
+                task.setRightBorder(rightB);
+                task.setStep(step);
+                semaphore.endWrite();
+                System.out.println("Source <" + leftB + "> <" + rightB + "> <" + step + ">");
 
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-
     }
 }

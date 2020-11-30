@@ -23,16 +23,16 @@ public class SimpleGenerator implements Runnable {
             double step;
             double leftB;
             double rightB;
+            double x = random.nextDouble();
+            double base = 10 - rand(0, 10);
+            Function log = new Log(base);
+            leftB = rand(0, 100);
+            rightB = 200 - rand(100, 200);
+            step = random.nextDouble();
             synchronized (task) {
-                double x = random.nextDouble();
-                double base = 10 - rand(0, 10);
-                Function log = new Log(base);
                 task.setFunction(log);
-                leftB = rand(0, 100);
                 task.setLeftBorder(leftB);
-                rightB = 200 - rand(100, 200);
                 task.setRightBorder(rightB);
-                step = random.nextDouble();
                 task.setStep(step);
             }
                 System.out.println("Source <" + leftB + "> <" + rightB + "> <" + step + ">");
