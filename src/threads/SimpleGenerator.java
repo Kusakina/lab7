@@ -19,24 +19,23 @@ public class SimpleGenerator implements Runnable {
 
     @Override
     public void run() {
-        double base;
-        double leftB;
-        double rightB;
-        double step;
         for (int i =0; i< 100; ++i){
-            double x = random.nextDouble();
-            base= 10 - rand(0, 10);
-            Function log = new Log(base);
-            task.setFunction(log);
-            leftB = rand(0, 100);
-            task.setLeftBorder(leftB);
-            rightB = 200 - rand(100, 200);
-            task.setRightBorder(rightB);
-            step = random.nextDouble();
-            task.setStep(step);
-            System.out.println("Source <"+leftB+"> <"+rightB+"> <"+step+">");
-            double res = Functions.inegral(task.getFunction(), leftB, rightB, step);
-            System.out.println("Result <"+leftB+"> <"+rightB+"> <"+step+"> <"+res+">");
+            double step;
+            double leftB;
+            double rightB;
+            synchronized (task) {
+                double x = random.nextDouble();
+                double base = 10 - rand(0, 10);
+                Function log = new Log(base);
+                task.setFunction(log);
+                leftB = rand(0, 100);
+                task.setLeftBorder(leftB);
+                rightB = 200 - rand(100, 200);
+                task.setRightBorder(rightB);
+                step = random.nextDouble();
+                task.setStep(step);
+            }
+                System.out.println("Source <" + leftB + "> <" + rightB + "> <" + step + ">");
 
         }
     }

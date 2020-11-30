@@ -45,14 +45,10 @@ public class Task {
     private double rightBorder;
     private double step;
     int operations;
-    public Task(){
+    public Task(int operations){
+        this.operations = operations;
     }
-    public Task(Function f, double left, double right, double step){
-        function = f;
-        leftBorder=left;
-        rightBorder = right;
-        this.step=step;
-    }
+
     public void setOperations (int n){
         operations = n;
     }

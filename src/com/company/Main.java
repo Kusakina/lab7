@@ -3,9 +3,7 @@ package com.company;
 import functions.*;
 import functions.basic.Exp;
 import functions.basic.Log;
-import threads.SimpleGenerator;
-import threads.SimpleIntegrator;
-import threads.Task;
+import threads.*;
 //import functions.basic.Cos;
 //import functions.basic.Exp;
 //import functions.basic.Log;
@@ -24,8 +22,7 @@ public class Main {
        return( x *= (right - left));
     }
     public static void nonThread(){
-        Task a = new Task();
-        a.setOperations(100);
+        Task a = new Task(100);
         double base;
         double leftB;
         double rightB;
@@ -50,14 +47,19 @@ public class Main {
         }
     }
     public static void simpleThreads(){
-        Task a = new Task();
-        a.setOperations(100);
+        Task a = new Task(100);
         SimpleGenerator generator = new SimpleGenerator(a);
         SimpleIntegrator integrator = new SimpleIntegrator(a);
-        new Thread(integrator).start();
         new Thread(generator).start();
-
-
+        new Thread(integrator).start();
+    }
+    public static void complicatedThreads(){
+        Task a = new Task(100);
+        Semaphore b = new Semaphore();
+        Generator generator = new Generator(a,b);
+        Integrator integrator = new Integrator(a,b);
+        new Thread(generator).start();
+        new Thread(integrator).start();
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         /*TabulatedFunction a = new TabulatedFunction(1.0, 3.0, 5);
@@ -210,7 +212,8 @@ public class Main {
       }
       //nonThread();
       System.out.println("simpleThreads here");
-      simpleThreads();
+      //simpleThreads();
+        complicatedThreads();
 
 
 

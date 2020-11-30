@@ -13,17 +13,26 @@ public class SimpleIntegrator implements Runnable {
 
     @Override
     public void run() {
-        double leftB;
-        double rightB;
-        double step;
-        for (int i =0; i< 100; ++i){
-            leftB = task.getLeftBorder();
-            rightB = task.getRightBorder();
-            step = task.getStep();
-            System.out.println("Source <"+leftB+"> <"+rightB+"> <"+step+">");
-            double res = Functions.inegral(task.getFunction(), leftB, rightB, step);
-            System.out.println("Result <"+leftB+"> <"+rightB+"> <"+step+"> <"+res+">");
 
+        for (int i =0; i< 100; ++i){
+            double leftB;
+            double rightB;
+            double step;
+            Function f;
+            synchronized (task) {
+                leftB = task.getLeftBorder();
+                rightB = task.getRightBorder();
+                step = task.getStep();
+                f= task.getFunction();
+
+            }
+            if (null==f) {
+                System.out.println("Неполная инициализация");
+            } else {
+                double res;
+                res = Functions.inegral(f, leftB, rightB, step);
+                System.out.println("Result <" + leftB + "> <" + rightB + "> <" + step + "> <" + res + ">");
+            }
         }
 
     }
