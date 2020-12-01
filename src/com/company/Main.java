@@ -19,7 +19,7 @@ public class Main {
     static Random random = new Random();
     static double rand(double left, double right){
         double x = random.nextDouble();
-       return( x *= (right - left));
+        return( x *= (right - left));
     }
     public static void nonThread(){
         Task a = new Task(100);
@@ -27,7 +27,7 @@ public class Main {
         double leftB;
         double rightB;
         double step;
-       // Random random = new Random();
+        // Random random = new Random();
 
         for (int i =0; i< 100; ++i){
             double x = random.nextDouble();
@@ -58,24 +58,22 @@ public class Main {
         integ.start();
     }
     public static void complicatedThreads() throws InterruptedException {
-        Task a = new Task(200);
+        Task a = new Task(100);
         Semaphore b = new Semaphore();
         Generator generator = new Generator(a,b);
         Integrator integrator = new Integrator(a,b);
         //generator.setPriority(10);
-        new Thread(generator).start();
+        generator.start();
         //integrator.setPriority(10);
-        new Thread(integrator).start();
+        integrator.start();
 
         Thread.sleep(50);
 
         generator.interrupt();
         integrator.interrupt();
-        System.out.println("\n\n\n\n"+generator.isInterrupted()+"\n\n\n\n");
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         /*TabulatedFunction a = new TabulatedFunction(1.0, 3.0, 5);
-
         for(int i = 0; i < a.getPointCount(); ++i){
             System.out.println(a.getPointX(i)+";"+ a.getPointY(i));
         }
@@ -107,7 +105,6 @@ public class Main {
             System.out.print(i + " ");
             System.out.println(a.getFunctionValue(i));
         }
-
         Cos b =new Cos();
         System.out.println("It's cos");
         for (double i= 0; i<2*Math.PI;i+=0.1 ){
@@ -139,7 +136,6 @@ public class Main {
         try (Writer out = new FileWriter("1.txt")) {
             TabulatedFunctions.writeTabulatedFunction(Ex,out);
         }
-
         try (BufferedReader in = new BufferedReader(new FileReader("1.txt"))) {
             TabulatedFunction Ex2  = TabulatedFunctions.readTabulatedFunction(in);
             System.out.println("It's tabulated Exp");
@@ -150,7 +146,6 @@ public class Main {
         } catch (InappropriateFunctionPointException e) {
             e.printStackTrace();
         }
-
         System.out.println("It's Ex");
         for (double i= 0; i<11 ;i+=1 ){
             System.out.print(i+" ");
@@ -186,14 +181,11 @@ public class Main {
                 System.out.print(i+" ");
                 System.out.println(Lex2.getFunctionValue(i));
              }
-
         }
-
         try (FileOutputStream out2 = new FileOutputStream("4.txt")) {
             ObjectOutputStream obj = new ObjectOutputStream(out2);
             obj.writeObject(Lex);
         }
-
         try( ObjectInputStream in2 = new ObjectInputStream(new FileInputStream("4.txt")))
         {
             TabulatedFunction Lex3 = (TabulatedFunction) in2.readObject();
@@ -204,7 +196,6 @@ public class Main {
             }
         }
          TabulatedFunction aa = new ArrayTabulatedFunction(1.0, 3.0, 5);
-
         for(int i = 0; i < aa.getPointCount(); ++i){
             System.out.println(aa.getPointX(i)+";"+ aa.getPointY(i));
         }
@@ -212,19 +203,19 @@ public class Main {
             TabulatedFunctions.writeTabulatedFunction(aa,out);
         }*/
 
-      Function a = new Exp();
-      double res = Functions.inegral(a, 0, 1, 0.001);//отличие в 7 знаке
-      System.out.println(res);
-      Function b = new Log(4);
-      try {
-          double res2 = Functions.inegral(b, -5, 3, 0.001);//отличие в 7 знаке
-          System.out.println(res2);
-      } catch (Exception e){
-          System.out.println(e.getMessage());
-      }
-      //nonThread();
-      System.out.println("simpleThreads here");
-      //simpleThreads();
+        Function a = new Exp();
+        double res = Functions.inegral(a, 0, 1, 0.001);//отличие в 7 знаке
+        System.out.println(res);
+        Function b = new Log(4);
+        try {
+            double res2 = Functions.inegral(b, -5, 3, 0.001);//отличие в 7 знаке
+            System.out.println(res2);
+        } catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        //nonThread();
+        System.out.println("simpleThreads here");
+        //simpleThreads();
         try {
             complicatedThreads();
         } catch (InterruptedException e) {
@@ -309,7 +300,6 @@ public class Main {
             System.out.println(parabola.getPointX(i)+";"+ parabola.getPointY(i));
         }
         System.out.println();
-
         try {
             funk.setPointX(1, -9);
         } catch (InappropriateFunctionPointException e){System.out.println(e.getMessage());};
@@ -354,14 +344,12 @@ public class Main {
         } catch (IllegalStateException e){
             System.out.println(e);
         }*/
-       // System.out.println();
+        // System.out.println();
         /*parabola.setPoint(1, new FunctionPoint(1.5, 2));
-
         for(int i = 0; i<parabola.getPointCount(); ++i){
             System.out.println(parabola.getPointX(i)+";"+ parabola.getPointY(i));
         }
         System.out.println();
-
         parabola.deletePoint(1);
         for(int i = 0; i<parabola.getPointCount(); ++i){
             System.out.println(parabola.getPointX(i)+";"+ parabola.getPointY(i));
