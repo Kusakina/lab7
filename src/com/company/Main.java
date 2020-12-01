@@ -50,16 +50,28 @@ public class Main {
         Task a = new Task(100);
         SimpleGenerator generator = new SimpleGenerator(a);
         SimpleIntegrator integrator = new SimpleIntegrator(a);
-        new Thread(generator).start();
-        new Thread(integrator).start();
+        Thread gen =new Thread(generator);
+        gen.setPriority(10);
+        gen.start();
+        Thread integ=new Thread(integrator);
+        integ.setPriority(10);
+        integ.start();
     }
-    public static void complicatedThreads(){
-        Task a = new Task(100);
+    public static void complicatedThreads() throws InterruptedException {
+        Task a = new Task(200);
         Semaphore b = new Semaphore();
         Generator generator = new Generator(a,b);
         Integrator integrator = new Integrator(a,b);
+        //generator.setPriority(10);
         new Thread(generator).start();
+        //integrator.setPriority(10);
         new Thread(integrator).start();
+
+        Thread.sleep(50);
+
+        generator.interrupt();
+        integrator.interrupt();
+        System.out.println("\n\n\n\n"+generator.isInterrupted()+"\n\n\n\n");
     }
     public static void main(String[] args) throws IOException, ClassNotFoundException {
         /*TabulatedFunction a = new TabulatedFunction(1.0, 3.0, 5);
@@ -213,7 +225,16 @@ public class Main {
       //nonThread();
       System.out.println("simpleThreads here");
       //simpleThreads();
-        complicatedThreads();
+        try {
+            complicatedThreads();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
 
 
 

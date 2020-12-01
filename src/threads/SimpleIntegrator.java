@@ -14,7 +14,7 @@ public class SimpleIntegrator implements Runnable {
     @Override
     public void run() {
 
-        for (int i =0; i< 100; ++i){
+        for (int i =0; i< task.getOperations(); ++i){
             double leftB;
             double rightB;
             double step;
