@@ -18,9 +18,7 @@ public class Generator extends Thread {
         double x = random.nextDouble();
         return( x *= (right - left));
     }
-    public void interrupt(){
-        super.interrupt();
-    }
+
     public void run() {
         try {
 

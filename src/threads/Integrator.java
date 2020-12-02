@@ -10,9 +10,7 @@ public class Integrator extends Thread {
         task = a;
         semaphore =b;
     }
-    public void interrupt(){
-        super.interrupt();
-    }
+
     public void run() {
         try {
             for (int i = 0; i < task.getOperations() && !Thread.currentThread().isInterrupted(); ++i) {

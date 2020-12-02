@@ -19,8 +19,8 @@ public class Task {
         this.step = step;
     }
 
-    private Function function;
-    private double leftBorder;
+    private volatile Function function;
+    private volatile double leftBorder;
 
     public Function getFunction() {
         return function;
@@ -42,8 +42,8 @@ public class Task {
         return operations;
     }
 
-    private double rightBorder;
-    private double step;
+    private volatile double rightBorder;
+    private volatile double step;
     int operations;
     public Task(int operations){
         this.operations = operations;
