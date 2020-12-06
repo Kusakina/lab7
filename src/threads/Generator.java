@@ -18,15 +18,19 @@ public class Generator extends Thread {
         double x = random.nextDouble();
         return( x *= (right - left));
     }
+    @Override
+    public void interrupt() {
+        System.out.println("Generator interrupted");
+        super.interrupt();
+    }
 
     public void run() {
         try {
 
-            for (int i = 0; i < task.getOperations() && !Thread.currentThread().isInterrupted(); ++i) {
+            for (int i = 0; i < task.getOperations() && !isInterrupted(); ++i) {
                 double step;
                 double leftB;
                 double rightB;
-                double x = random.nextDouble();
                 double base = 10 - rand(0, 10);
                 Function log = new Log(base);
                 leftB = rand(0, 100);
@@ -38,12 +42,12 @@ public class Generator extends Thread {
                 task.setRightBorder(rightB);
                 task.setStep(step);
                 semaphore.endWrite();
-                System.out.println(i + "Source <" + leftB + "> <" + rightB + "> <" + step + ">");
+                System.out.println("thread: " + i + "Source <" + leftB + "> <" + rightB + "> <" + step + ">");
 
             }
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Generator interrupted while wait");
         }
     }
 }

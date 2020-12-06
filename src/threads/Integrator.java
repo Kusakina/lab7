@@ -10,10 +10,15 @@ public class Integrator extends Thread {
         task = a;
         semaphore =b;
     }
+    @Override
+    public void interrupt() {
+        System.out.println("Integrator interrupted");
+        super.interrupt();
+    }
 
     public void run() {
         try {
-            for (int i = 0; i < task.getOperations() && !Thread.currentThread().isInterrupted(); ++i) {
+            for (int i = 0; i < task.getOperations() && !isInterrupted(); ++i) {
                 double leftB;
                 double rightB;
                 double step;
@@ -25,12 +30,12 @@ public class Integrator extends Thread {
                 f = task.getFunction();
                 semaphore.endRead();
                 double res = Functions.inegral(f, leftB, rightB, step);
-                System.out.println(i + "Result <" + leftB + "> <" + rightB + "> <" + step + "> <" + res + ">\n");
+                System.out.println("thread: " + i + "Result <" + leftB + "> <" + rightB + "> <" + step + "> <" + res + ">\n");
 
             }
 
         }catch (InterruptedException e) {
-            e.printStackTrace();
+            System.out.println("Integrator interrupted while wait");
         }
 
     }

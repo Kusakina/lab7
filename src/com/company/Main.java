@@ -40,9 +40,9 @@ public class Main {
             a.setRightBorder(rightB);
             step = random.nextDouble();
             a.setStep(step);
-            System.out.println("Source <"+leftB+"> <"+rightB+"> <"+step+">");
+            System.out.println("nonThread"+i+"Source <"+leftB+"> <"+rightB+"> <"+step+">");
             double res = Functions.inegral(a.getFunction(), leftB, rightB, step);
-            System.out.println("Result <"+leftB+"> <"+rightB+"> <"+step+"> <"+res+">");
+            System.out.println("nonThread"+i+"Result <"+leftB+"> <"+rightB+"> <"+step+"> <"+res+">");
 
         }
     }
@@ -53,21 +53,25 @@ public class Main {
         Thread gen =new Thread(generator);
         gen.setPriority(10);
         gen.start();
-        Thread integ=new Thread(integrator);
+        Thread integ =new Thread(integrator);
         integ.setPriority(10);
         integ.start();
     }
-    public static void complicatedThreads() throws InterruptedException {
+    public static void complicatedThreads() {
         Task a = new Task(100);
         Semaphore b = new Semaphore();
         Generator generator = new Generator(a,b);
         Integrator integrator = new Integrator(a,b);
         //generator.setPriority(10);
-        generator.start();
         //integrator.setPriority(10);
+        generator.start();
         integrator.start();
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
-        Thread.sleep(50);
 
         generator.interrupt();
         integrator.interrupt();
@@ -208,7 +212,7 @@ public class Main {
         System.out.println(res);
         Function b = new Log(4);
         try {
-            double res2 = Functions.inegral(b, -5, 3, 0.001);//отличие в 7 знаке
+            double res2 = Functions.inegral(b, -5, 3, 0.001);//некорректный интеграл
             System.out.println(res2);
         } catch (Exception e){
             System.out.println(e.getMessage());
@@ -216,11 +220,9 @@ public class Main {
         //nonThread();
         System.out.println("simpleThreads here");
         //simpleThreads();
-        try {
-            complicatedThreads();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        complicatedThreads();
+
 
 
 

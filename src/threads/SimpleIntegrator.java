@@ -30,7 +30,7 @@ public class SimpleIntegrator implements Runnable {
                 System.out.println("Неполная инициализация");
             } else {
                 double res = Functions.inegral(f, leftB, rightB, step);
-                System.out.println("Result <" + leftB + "> <" + rightB + "> <" + step + "> <" + res + ">");
+                System.out.println("simple: " + i +"Result <" + leftB + "> <" + rightB + "> <" + step + "> <" + res + ">");
             }
         }
 

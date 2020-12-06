@@ -35,7 +35,7 @@ public class SimpleGenerator implements Runnable {
                 task.setRightBorder(rightB);
                 task.setStep(step);
             }
-                System.out.println("Source <" + leftB + "> <" + rightB + "> <" + step + ">");
+                System.out.println("simple: " + i +"Source <" + leftB + "> <" + rightB + "> <" + step + ">");
 
         }
     }
