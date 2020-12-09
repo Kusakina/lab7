@@ -1,6 +1,8 @@
 package functions;
 
 import java.io.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayTabulatedFunction implements TabulatedFunction, Serializable, Externalizable{
     private FunctionPoint[] mas;
@@ -269,5 +271,28 @@ public class ArrayTabulatedFunction implements TabulatedFunction, Serializable, 
     public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {
         Size = (int) in.readObject();
         mas = (FunctionPoint[]) in.readObject();
+    }
+
+    @Override
+    public Iterator<FunctionPoint> iterator() {
+        return new Iterator<>() {
+            int pos = -1;
+            @Override
+            public boolean hasNext() {
+                return pos + 1 < Size;
+            }
+
+            @Override
+            public FunctionPoint next() {
+                if (!hasNext()) throw new NoSuchElementException();
+                ++pos;
+                return mas[pos].clone();
+            }
+
+            @Override
+            public void remove() {
+                throw new UnsupportedOperationException();
+            }
+        };
     }
 }

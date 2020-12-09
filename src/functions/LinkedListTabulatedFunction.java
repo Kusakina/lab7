@@ -1,6 +1,8 @@
   package functions;
 
 import java.io.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
   public class LinkedListTabulatedFunction implements TabulatedFunction, Serializable, Externalizable {
     @Override
@@ -110,7 +112,29 @@ import java.io.*;
         return copy;
     }
 
-    public static class FunctionNode implements Serializable, Externalizable{
+      @Override
+      public Iterator<FunctionPoint> iterator() {
+          return new Iterator<FunctionPoint>() {
+              FunctionNode iterator = head;
+              @Override
+              public boolean hasNext() {
+                  return (iterator.pNext != head) ;
+              }
+
+              @Override
+              public FunctionPoint next() {
+                  if (!hasNext()) throw new NoSuchElementException();
+                  iterator=iterator.pNext;
+                  return iterator.myPoint.clone();
+              }
+              @Override
+              public void remove() {
+                  throw new UnsupportedOperationException();
+              }
+          };
+      }
+
+      public static class FunctionNode implements Serializable, Externalizable{
         FunctionNode pNext;
         FunctionNode pPrev;
         FunctionPoint myPoint;

@@ -200,7 +200,7 @@ public class Main {
             }
         }
          TabulatedFunction aa = new ArrayTabulatedFunction(1.0, 3.0, 5);
-        for(int i = 0; i < aa.getPointCount(); ++i){
+        for(){
             System.out.println(aa.getPointX(i)+";"+ aa.getPointY(i));
         }
         try (Writer out = new FileWriter("7.txt")) {
@@ -218,10 +218,14 @@ public class Main {
             System.out.println(e.getMessage());
         }
         //nonThread();
-        System.out.println("simpleThreads here");
+       /* System.out.println("simpleThreads here");
         //simpleThreads();
 
-        complicatedThreads();
+        complicatedThreads();*/
+        TabulatedFunction aa = new LinkedListTabulatedFunction(1.0, 3.0, 5);
+        for( FunctionPoint t : aa){
+            System.out.println(t);
+        }
 
 
 
